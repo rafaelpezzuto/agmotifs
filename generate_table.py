@@ -5,7 +5,7 @@ import sys
 DIR_SOURCES =  sys.argv[1]
 IN_FILES = ['/'.join([DIR_SOURCES, f]) for f in os.listdir(DIR_SOURCES)]
 
-for f in IN_FILES:
+for f in sorted(IN_FILES):
     fi = open(f)
     while True:
         line = fi.readline()
