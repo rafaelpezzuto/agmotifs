@@ -39,8 +39,28 @@ c5_2 = set([154, 156, 158, 184, 188, 406, 412, 414, 444, 924, 926, 1208, 1298, 1
 c5_3 = set([154, 158, 184, 188, 406, 412, 414, 444, 924, 926, 1208, 1306, 1328, 1336, 1456, 1802, 1816, 1818, 1832, 1848, 3344, 3346, 3352, 3864, 8466, 8470, 8474, 8496, 8504, 8594, 8596, 8600, 8624, 8728, 8730, 8734, 8756, 8760, 8852, 8854, 8856, 8860, 8888, 34192, 35120, 35346, 41490, 41520, 42512, 43536, 49670, 49808])
 c5 = sorted(c5_1.union(c5_2).union(c5_3))
 
-for c in c3:
+import matplotlib.pyplot as plt
+import networkx as nx
+
+
+size = 5
+
+for c in c5:
     print(c)
     binvector = dec2bin(c)
-    matrix = motif2adjmatrix(binvector, 3)
+    matrix = motif2adjmatrix(binvector, size)
     print_matrix(matrix)
+    g = nx.DiGraph()
+    labels_dict = {}
+    for i in range(size):
+        g.add_node(i)
+        labels_dict[i] = str(i + 1)
+
+    for ind_i, i in enumerate(matrix):
+        for ind_j, j in enumerate(i):
+            if j == 1:
+                g.add_edge(ind_i, ind_j)
+
+    nx.draw(g, pos=nx.planar_layout(g), node_size=1600, arrowsize=50, labels=labels_dict, with_labels=True)
+    plt.savefig('-'.join([str(size), str(c)]))
+    plt.clf()
