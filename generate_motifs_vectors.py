@@ -40,7 +40,7 @@ for kfile in files:
     file_name = '/'.join(kfile.split('/')[:-2] + ['vectors'] + kfile.split('/')[-1:])
     os.makedirs(file_folder, exist_ok=True)
     w = open(file_name, 'w')
-    for kfield in file_fields:
+    for kfield in sorted(file_fields):
         motifs_ids = [i[0] for i in sorted(file_fields.get(kfield), key=lambda x:int(x[0]))]
         break
     w.write(','.join(['GROUP'] + motifs_ids))
@@ -48,6 +48,6 @@ for kfile in files:
     for kfield in sorted(file_fields):
         vfield = file_fields.get(kfield)
         w.write(kfield + ',')
-        w.write(','.join([str(vi[1]) for vi in vfield]))
+        w.write(','.join([str(vi[1]) for vi in sorted(vfield, key=lambda x:int(x[0]))]))
         w.write('\n')
     w.close()
