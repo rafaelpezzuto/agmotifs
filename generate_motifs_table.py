@@ -2,7 +2,7 @@ import os
 import sys
 
 
-DIR_SOURCES =  sys.argv[1]
+DIR_SOURCES = sys.argv[1]
 IN_FILES = ['/'.join([DIR_SOURCES, f]) for f in os.listdir(DIR_SOURCES)]
 
 for f in sorted(IN_FILES):

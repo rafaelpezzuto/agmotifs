@@ -1,10 +1,12 @@
-#!/bin/bash
-pasta_grafos=$1
-motif_tamanho=$2
-pasta_saida=$3
-mkdir -p $pasta_saida/$motif_tamanho
-for f in $(ls $pasta_grafos)
+#!/usr/bin/env bash
+DIR_SUBGRAPHS=$1
+MOTIF_SIZE=$2
+DIR_OUTPUT=$3
+mkdir -p $DIR_OUTPUT/$MOTIF_SIZE
+cd $DIR_SUBGRAPHS;
+for f in *-edges-minimal.csv;
 do
-  ./mfinder "$pasta_grafos/$f" -s $motif_tamanho -f "$pasta_saida/$motif_tamanho/$f"
-  mv "$pasta_saida/$motif_tamanho/$f""_OUT.txt" "$pasta_saida/$motif_tamanho/$f"
+  echo 'SUBGRAPH='$DIR_SUBGRAPHS/$f 'MOTIF_SIZE='$MOTIF_SIZE;
+  /home/rafael/Working/phd/agmotifs/mfinder "$DIR_SUBGRAPHS/$f" -s $MOTIF_SIZE -f "$DIR_OUTPUT/$MOTIF_SIZE/$f"
+  mv "$DIR_OUTPUT/$MOTIF_SIZE/$f""_OUT.txt" "$DIR_OUTPUT/$MOTIF_SIZE/$f"
 done
